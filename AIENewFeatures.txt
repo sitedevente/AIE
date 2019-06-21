@@ -1,0 +1,6 @@
+- NCONF
+- JOI(Validation in Model/Controler?)
+- MySQL PROCEDURES
+- JsDoc(ES6 Class Documentation)
+- SEQUELIZE
+- GRAPHQL

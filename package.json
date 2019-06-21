@@ -1,0 +1,19 @@
+{
+  "name": "aie",
+  "version": "1.0.0",
+  "description": "test to see new web server side programming",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "stop": "pkill --signal SIGINT application"
+  },
+  "author": "TipocheJM",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^15.0.3",
+    "express": "^4.16.4",
+    "mysql2": "^1.6.5",
+    "nconf": "^0.10.0"
+  }
+}
