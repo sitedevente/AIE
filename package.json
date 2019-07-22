@@ -4,7 +4,7 @@
   "description": "test to see new web server side programming",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV='dev' nodemon server.js ",
     "start": "nodemon server.js",
     "stop": "pkill --signal SIGINT application"
   },
