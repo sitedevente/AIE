@@ -1,6 +1,8 @@
+const BienDb = require("./BienDb");
+
 module.exports = class DBWrapper{
-    constructor (pool){
-        this.pool = pool;
+    constructor (){
+        this.pool = new BienDb();
     }
 
     getRessource (params) {
