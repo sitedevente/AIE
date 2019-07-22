@@ -1,26 +1,7 @@
-const mysql2 = require('mysql2/promise');
 const {Router,json} = require('express');
 const BienController = require('../controller/BienController');
 
-class BienDb{
-	constructor (){
-		this.pool = mysql2.createPool({
-			host: 'localhost',
-			user : 'aie' ,
-			password: '21504680',
-			database: 'aie',
-			connectionLimit : 10,
-			queueLimit : 150
-		});
-	}
-
-	getPool (){
-		return this.pool;
-	}
-}
-
-const db = new BienDb();
-const bienCtrl = new BienController(db.getPool());
+const bienCtrl = new BienController();
 const router = new Router();
 
 // problem here in body req
