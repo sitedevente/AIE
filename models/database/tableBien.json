@@ -1,0 +1,10 @@
+[
+    {
+        "idAnnonce":1,
+        "adresse": "1 rue pierre loti"
+    },
+    {
+        "idAnnonce":2,
+        "adresse": "1 rue des oubliees"
+    }
+]
