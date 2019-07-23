@@ -1,6 +1,6 @@
 // Database distributing module 
 const DBWrapper = require("./DBWrapper");
-const TestDb = require("../test/database/TestDb");
+const DevDb = require("./DevDb");
 
 module.exports = class DbFactory{
 	constructor (){
@@ -8,6 +8,6 @@ module.exports = class DbFactory{
         if(NODE_ENV === 'prod'){
             return new DBWrapper();
         }
-        return new TestDb();
+        return new DevDb();
 	}
 };
