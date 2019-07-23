@@ -18,7 +18,7 @@ const readJson = (filename) => {
 
 // Database to use in developpement 
 // This database should be distributed by a database factory when 
-module.export = class TestDb{
+module.export = class DevDb{
 
     constructor (){
         this.table.bien = readJson("./tableBien.json");
