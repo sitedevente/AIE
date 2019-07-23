@@ -4,9 +4,8 @@
   "description": "test to see new web server side programming",
   "main": "server.js",
   "scripts": {
-    "test": "NODE_ENV='dev' nodemon server.js ",
-    "start": "nodemon server.js",
-    "stop": "pkill --signal SIGINT application"
+    "test": "set NODE_ENV=dev && nodemon server.js ",
+    "start": "set NODE_ENV=prod && nodemon server.js"
   },
   "author": "TipocheJM",
   "license": "ISC",
