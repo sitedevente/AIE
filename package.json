@@ -4,7 +4,7 @@
   "description": "test to see new web server side programming",
   "main": "server.js",
   "scripts": {
-    "test": "set NODE_ENV=dev && nodemon server.js ",
+    "dev": "set NODE_ENV=dev && nodemon server.js ",
     "start": "set NODE_ENV=prod && nodemon server.js"
   },
   "author": "TipocheJM",
