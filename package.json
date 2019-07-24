@@ -4,8 +4,9 @@
   "description": "test to see new web server side programming",
   "main": "server.js",
   "scripts": {
-    "dev": "set NODE_ENV=dev && nodemon server.js ",
-    "start": "set NODE_ENV=prod && nodemon server.js"
+    "dev": "set NODE_ENV=dev && npm start",
+    "start": "nodemon server.js",
+    "prod": "set NODE_ENV=prod && npm start"
   },
   "author": "TipocheJM",
   "license": "ISC",
