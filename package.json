@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "set NODE_ENV=dev && npm start",
+    "joi": "node ./test/JoiTest.js",
     "start": "nodemon server.js",
     "prod": "set NODE_ENV=prod && npm start"
   },

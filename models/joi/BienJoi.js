@@ -43,10 +43,4 @@ module.exports = class BienJoiFactory{
         }
         return MaisonSchema;
     }
-
-    static testDisp (){
-        console.log(AppartementSchema)
-        console.log('------------00----')
-        console.log(MaisonSchema)
-    }
 };
