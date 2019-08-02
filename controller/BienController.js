@@ -1,11 +1,8 @@
-/* eslint-disable class-methods-use-this */
-const DBWrapper = require('../models/DBWrapper');
-const BienFactory = require('../models/BienFactory');
+const DbFactory = require('../models/database/DbFactory');
 
 module.exports = class BienController{
-	// Let state be known by adding res ans req object to controller
-	constructor (pool){
-		this.manager = new DBWrapper(pool);
+	constructor (){
+		this.manager = new DbFactory();
 	}
 
 	static idIsValid (req,res,next,id){
@@ -67,19 +64,17 @@ module.exports = class BienController{
 		res.status(status).json(json);
 	}
 
+	// eslint-disable-next-line class-methods-use-this
 	async setBien (req,res) {
 		const {body} = req;
-		const bien = BienFactory.createBien(body);
-		if(BienFactory.isAppartement(bien)){
-
-		}else if(BienFactory.isMaison(bien)){
-
-		}else{
-			return	res.status(204).json(bien); 
+		// const bien = BienFactory.createBien(body);
+		console.log(process.NODE_ENV);
+		if(!body){
+			// return res.status(204).json(bien); 
 		}
- 
-	}
 
+		return res.status(201).json(body)
+	}
 
 	static notFound (req,res){
 		return res.sendStatus(404);
