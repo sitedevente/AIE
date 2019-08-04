@@ -1,4 +1,6 @@
 const DbFactory = require('../models/database/DbFactory');
+const BienJoi = require('../models/joi/BienJoi');
+
 
 module.exports = class BienController{
 	constructor (){
@@ -67,13 +69,11 @@ module.exports = class BienController{
 	// eslint-disable-next-line class-methods-use-this
 	async setBien (req,res) {
 		const {body} = req;
-		// const bien = BienFactory.createBien(body);
-		console.log(process.NODE_ENV);
-		if(!body){
-			// return res.status(204).json(bien); 
-		}
-
-		return res.status(201).json(body)
+		const {type,params} = body;
+		const schema = new BienJoi(type)
+		await schema.validate(params)
+		.then(() => res.status(201))
+		.catch((error) => res.status(204).json(error))
 	}
 
 	static notFound (req,res){
