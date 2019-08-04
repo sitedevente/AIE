@@ -1,6 +1,6 @@
 const BienJoi = require('../models/joi/BienJoi');
 
-const validBienSchema = {
+const validBienData = {
     titre: 'test',
     adresse: 'test',
     superficie: 3000,
@@ -15,7 +15,7 @@ const validBienSchema = {
     prix: 200
 }
 
-const invalidBienSchema = {
+const invalidBienData = {
     titre: 254,
     adresse: 'test',
     superficie: 3000,
@@ -29,24 +29,35 @@ const invalidBienSchema = {
     prix: 200
 }
 
-const invalidMaisonSchema = {
-    ...invalidBienSchema,
+const validMaisonData = {
+    ...validBienData,
     cave: true,
     garage: false,
     jardin: true
 }
 
+const invalidMaisonData = {
+    ...invalidBienData,
+    cave: true,
+    garage: false,
+    jardin: true
+}
+
+// eslint-disable-next-line func-style
+const errorHandler = (error,value) => {
+    if(error){
+        console.log('failure')
+        console.log(error.details)
+    }else{
+        console.log('success')
+        console.log(value)
+    }
+    console.log('Test Ended')
+    console.log('');
+}
 
 const maisonJoiTest = new BienJoi('Maison');
 
-const {error, value} = maisonJoiTest.validate(invalidMaisonSchema);
-
-if(error && error.details){
-    console.log('failure')
-    console.log(error)
-}else{
-    console.log('success')
-    console.log(value)
-}
-
-console.log('Test Ended')
+maisonJoiTest.validate(invalidMaisonData,errorHandler)
+maisonJoiTest.validate(validMaisonData,errorHandler)
+maisonJoiTest.validate(validBienData,errorHandler)
