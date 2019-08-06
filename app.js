@@ -4,7 +4,7 @@ const express = require('express');
 // process.env.DB_HOST and dotenv
 
 const app = express();
-const bien = require('./routes/Bien');
+const {bien} = require('./routes');
 
 app
 
@@ -19,7 +19,7 @@ app
 })
 
 .use((req, res, next) => {
-  console.log('Request received! to ' + req.originalUrl);
+  console.log(`Request received! to ${req.originalUrl} via ${req.method} HTTP method`);
   next();
 })
 
