@@ -69,11 +69,18 @@ module.exports = class BienController{
 	// eslint-disable-next-line class-methods-use-this
 	async setBien (req,res) {
 		const {body} = req;
-		const {type,params} = body;
-		const schema = new BienJoi(type)
+		const {type,...params} = body;
+		const schema = new BienJoi(type);
+
 		await schema.validate(params)
-		.then(() => res.status(201))
-		.catch((error) => res.status(204).json(error))
+		.then((value) => {
+			
+
+
+			
+			//return res.status(201).json(value)
+		})
+		.catch((error) => res.status(400).json(error.details[0].message))
 	}
 
 	static notFound (req,res){
