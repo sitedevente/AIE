@@ -29,6 +29,12 @@ const invalidBienData = {
     prix: 200
 }
 
+const validAppartData = {
+    ...validBienData,
+    numPorte: '2E',
+    etage: 2
+};
+
 const validMaisonData = {
     ...validBienData,
     cave: true,
@@ -58,6 +64,13 @@ const errorHandler = (error,value) => {
 
 const maisonJoiTest = new BienJoi('Maison');
 
+const appartJoiTest = new BienJoi('Appartement');
+
 maisonJoiTest.validate(invalidMaisonData,errorHandler)
 maisonJoiTest.validate(validMaisonData,errorHandler)
 maisonJoiTest.validate(validBienData,errorHandler)
+
+console.log('Appartement now')
+
+maisonJoiTest.validate(validAppartData,errorHandler)
+appartJoiTest.validate(validAppartData,errorHandler)
