@@ -19,7 +19,7 @@ app
 })
 
 .use((req, res, next) => {
-  console.log(`Request received! to ${req.originalUrl} via ${req.method} HTTP method`);
+  console.log(`Request received! to ${req.originalUrl} via HTTP ${req.method} method`);
   next();
 })
 
