@@ -1,6 +1,6 @@
-- NCONF
-- JOI(Validation in Model/Controler?)
-- MySQL PROCEDURES
-- JsDoc(ES6 Class Documentation)
-- SEQUELIZE
-- GRAPHQL
+- JOI (In progress)
+- SEQUELIZE (In progress)
+- NCONF or other config Store (Next)
+- JsDoc (Documentation - Low priority)
+- MySQL PROCEDURES (Low priority)
+- GRAPHQL (Low priority)
