@@ -4,6 +4,7 @@
   "description": "test to see new web server side programming",
   "main": "server.js",
   "scripts": {
+    "db": "node ./test/DbTest.js",
     "dev": "set NODE_ENV=dev && npm start",
     "joi": "node ./test/JoiTest.js",
     "start": "nodemon server.js",
@@ -14,6 +15,7 @@
   "dependencies": {
     "@hapi/joi": "^15.0.3",
     "express": "^4.17.1",
-    "mysql2": "^1.6.5"
+    "mysql2": "^1.6.5",
+    "sequelize": "^5.12.3"
   }
 }
