@@ -9,7 +9,7 @@ module.exports = (database, Sequelize, Parent) => {
     });
 
     House.belongsTo(Parent) ;
-    
+    Parent.hasOne(House);    
     return House;
 };
 

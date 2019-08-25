@@ -8,6 +8,6 @@ module.exports = (database, Sequelize, Parent) => {
     })
 
     Flat.belongsTo(Parent);
-    
+    Parent.hasOne(Flat);
     return Flat;
 };
