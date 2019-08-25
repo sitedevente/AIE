@@ -12,7 +12,7 @@ module.exports = (database, Sequelize) => {
         dpe: INTEGER,
         ges: INTEGER,
         location: BOOLEAN,
-        price: INTEGER,
+        price: INTEGER
     }, {
             allowNull: false
         });
