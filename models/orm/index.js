@@ -18,10 +18,8 @@ const EstateCreator = require('./Estate');
 const FlatCreator = require('./Flat');
 const HouseCreator = require('./House');
 
-module.exports.database = sequelize;
-module.exports.ModelCreator = {
-    EstateCreator,
-    FlatCreator,
-    HouseCreator
-};
+EstateCreator(sequelize,Sequelize);
+FlatCreator(sequelize,Sequelize)
+HouseCreator(sequelize,Sequelize);
 
+module.exports.database = sequelize;
