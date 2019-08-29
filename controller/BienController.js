@@ -1,90 +1,70 @@
-const DbFactory = require('../models/database/DbFactory');
-const BienJoi = require('../models/joi/BienJoi');
-
+const Sequelize = require('sequelize');
+const {database,ModelCreator} = require('../models/orm')
 
 module.exports = class BienController{
 	constructor (){
-		this.manager = new DbFactory();
+		this.Estate = ModelCreator.EstateCreator(database,Sequelize);
+		this.Flat = ModelCreator.FlatCreator(database,Sequelize,this.Estate);
+		this.House = ModelCreator.HouseCreator(database,Sequelize,this.Estate);
 	}
 
-	static idIsValid (req,res,next,id){
-		if(isNaN(id)){
-			return res.sendStatus(404);	
-		}	
-		res.locals.id = id;
-		next();
-	}
-	
-	async getBien (req,res) {
-		const [paramBien,paramAppart,paramMaison] = ['bien','appartement','maison'].map( (element) => {
-			const obj = {
-				primaryKey : {
-					key: 'idAnnonce',
-					value:res.locals.id
-				},
-				table : element
-			}
-			return obj;
-		});
-		const {status,json} = await Promise.all([
-			this.manager.getRessource(paramBien),
-			this.manager.getRessource(paramAppart) ,
-			this.manager.getRessource(paramMaison)
-		])
-		.then(([bien,appart,maison]) => {
-			if(bien.json.status !== undefined){
-				return{
-					status: bien.status, 
-					json: bien.json
-				}
-			}
-			for(let indexAppart = 0,indexBien = 0,indexMaison = 0; indexBien < bien.json.length; indexBien += 1){
-				if(appart.json.length > indexAppart && bien.json[indexBien].idAnnonce === appart.json[indexAppart].idAnnonce){
-					bien.json[indexBien] = {
-						type:'appartement',
-						...bien.json[indexBien],
-						...appart.json[indexAppart]
-					};
-					indexAppart += 1;
-				}else{
-					bien.json[indexBien] = {
-						type: 'Maison',
-						...bien.json[indexBien],
-						...maison.json[indexMaison]
-					}
-					indexMaison += 1;
-				}
-			}
-			return {
-				status: 404,
-				json: bien.json
-			}
+	async getOne (req,res) {
+		const {id} = res.locals;
+
+		this.Estate.findByPk(id, {
+			nest:true,
+			raw:true,    
+			include: [
+				{model: this.Flat},
+				{model: this.House}
+			]
 		})
-		.catch((err) => {
-			console.log(err)
+		.then( raw => {
+			const {flat, house} = raw;
+			if(flat.estateId && !house.estateId){
+				delete raw.house;
+			}else if (house.estateId && !flat.estateId){
+				delete raw.flat;
+			}
+			return res.status(200).json(raw);
 		})
-		res.status(status).json(json);
+		.catch( err => res.status(400).json(err))
 	}
 
-	// eslint-disable-next-line class-methods-use-this
-	async setBien (req,res) {
+	async getAll (){
+		this.Estate.build();
+	}
+
+	async createEstate (req,res) {
+		// Process json input in HTTP request body
 		const {body} = req;
-		const {type,...params} = body;
-		const schema = new BienJoi(type);
-
-		await schema.validate(params)
-		.then((value) => {
-			
-
-
-			
-			//return res.status(201).json(value)
-		})
-		.catch((error) => res.status(400).json(error.details[0].message))
-	}
-
-	static notFound (req,res){
-		return res.sendStatus(404);
+		const {flat,house,type,...estate} = body;
+		
+		// Build sequelize model instance.
+		const newEstate = this.Estate.build(estate);
+		
+		// Build subType using factory method
+		const subTypeBuilder = id => {
+			if(type === 'flat'){
+				return this.Flat.build({
+					...flat,
+					id
+				})
+			}else if(type === 'house'){
+				return this.House.build({
+					...house,
+					id
+				})
+			}
+		}
+		
+		// Use sequelize transaction feature to create new Estate
+		// return either id or json error;
+		await database.transaction(tran => newEstate.save({transaction: tran})
+		.then(instance => subTypeBuilder(instance.dataValues.id)
+			.save({transaction: tran})
+			.then(() => res.status(201).json({id : instance.dataValues.id}))))
+		.catch( err => res.status(400).json(err));
 	}
 
 };
