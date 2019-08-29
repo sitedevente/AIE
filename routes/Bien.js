@@ -6,6 +6,14 @@ const EstateJoi = require('../models/joi/BienJoi');
 const bienCtrl = new BienController();
 const router = new Router();
 
+const idValidator = (req,res,next,id) => {
+    if(isNaN(id)){
+        return res.sendStatus(404);	
+    }	
+    res.locals.id = id;
+    next();
+};
+
 const estateValidator = async (req, res, next) => {
     const {flat, house} = req.body;
     let type = '';
@@ -24,12 +32,11 @@ const estateValidator = async (req, res, next) => {
     .catch(err => res.status(400).json(err.details))
 };
 
-
 router
-.param('id', BienController.idIsValid)
-.post('/', json(), estateValidator, bienCtrl.setBien.bind(bienCtrl))
-.get('/', bienCtrl.getBien.bind(bienCtrl))
-.get('/:id', bienCtrl.getBien.bind(bienCtrl))
-.use('*', BienController.notFound)
+.param('id', idValidator)
+.post('/', json(), estateValidator, bienCtrl.createEstate.bind(bienCtrl))
+.get('/', bienCtrl.getAll.bind(bienCtrl))
+.get('/:id', bienCtrl.getOne.bind(bienCtrl))
+.use('*', (req,res) => res.sendStatus(404))
 
 module.exports = router;
