@@ -1,4 +1,4 @@
-module.exports = (database, Sequelize, Parent) => {
+module.exports = (database, Sequelize) => {
     const {STRING, INTEGER} = Sequelize;
     const Flat = database.define('flat', {
         floor: INTEGER,
@@ -7,7 +7,9 @@ module.exports = (database, Sequelize, Parent) => {
             allowNull: false
     })
 
-    Flat.belongsTo(Parent);
-    Parent.hasOne(Flat);
+    const {estate} = database.models;
+    Flat.belongsTo(estate);
+    estate.hasOne(Flat);
+    
     return Flat;
 };
