@@ -28,6 +28,7 @@ const flatSchema = estateSchema.keys({
             .required(),
         doorTag: Joi.string().required()
     })
+    .required()
 });
 
 const houseSchema = estateSchema.keys({
@@ -36,9 +37,10 @@ const houseSchema = estateSchema.keys({
         garage: Joi.boolean().required(),
         garden: Joi.boolean().required()
     })
+    .required()
 });
 
-module.exports = class BienJoiFactory {
+module.exports = class EstateJoiFactory {
     constructor (subType) {
         if (subType === 'flat') {
             return flatSchema;
