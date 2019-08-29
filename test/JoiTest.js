@@ -68,15 +68,41 @@ const errorHandler = (error,value) => {
     console.log('');
 }
 
+const joiHandler = async (schema, data) => {
+    const resToDisplay = {
+        value: "",
+        state: ""
+    }    
+    
+    await schema.validate(data)
+    .then( value => {
+        resToDisplay.value = value;
+        resToDisplay.state = 'success'
+    })
+    .catch( error => {
+        resToDisplay.value = error.details;
+        resToDisplay.state = 'failure'
+    });
+    console.log(resToDisplay.state, resToDisplay.value);
+};
+
+
 const houseJoiTest = new EstateJoi('house');
 
 const flatJoiTest = new EstateJoi('flat');
 
-houseJoiTest.validate(invalidHouseData,errorHandler)
-houseJoiTest.validate(validHouseData,errorHandler)
-houseJoiTest.validate(validEstateData,errorHandler)
+Promise.all([
+    joiHandler(houseJoiTest, invalidHouseData),
+    joiHandler(houseJoiTest, validHouseData ),
+    joiHandler(houseJoiTest, validEstateData)
+])
+.then( () => {
+    console.log('')
+    console.log('Flat now')
+    joiHandler(houseJoiTest, validFlatData)
+    joiHandler(flatJoiTest, validFlatData)
+})
+.catch( err => {
+    console.log('Heinnnn', err)
+})
 
-console.log('flat now')
-
-houseJoiTest.validate(validFlatData,errorHandler)
-flatJoiTest.validate(validFlatData,errorHandler)
