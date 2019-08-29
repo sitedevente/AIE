@@ -1,5 +1,5 @@
 module.exports = (database, Sequelize, Parent) => {
-    const { INTEGER, BOOLEAN } = Sequelize;
+    const {BOOLEAN} = Sequelize;
     const House = database.define('house', {
         basement: BOOLEAN,
         garage: BOOLEAN,
@@ -8,7 +8,7 @@ module.exports = (database, Sequelize, Parent) => {
             allowNull: false
     });
 
-    House.belongsTo(Parent) ;
+    House.belongsTo(Parent);
     Parent.hasOne(House);    
     return House;
 };

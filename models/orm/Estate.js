@@ -1,5 +1,5 @@
 module.exports = (database, Sequelize) => {
-    const { STRING, INTEGER, TEXT, BOOLEAN } = Sequelize;
+    const {STRING, INTEGER, TEXT, BOOLEAN} = Sequelize;
     return database.define('estate', {
         title: STRING,
         address: STRING,
@@ -17,8 +17,3 @@ module.exports = (database, Sequelize) => {
             allowNull: false
         });
 };
-
-
-
-
-

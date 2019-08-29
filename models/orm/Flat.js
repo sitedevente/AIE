@@ -1,8 +1,8 @@
 module.exports = (database, Sequelize, Parent) => {
-    const { STRING, INTEGER } = Sequelize;
+    const {STRING, INTEGER} = Sequelize;
     const Flat = database.define('flat', {
-        etage: INTEGER,
-        numPorte: STRING
+        floor: INTEGER,
+        doorTag: STRING
     }, {
             allowNull: false
     })
