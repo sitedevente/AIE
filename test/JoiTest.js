@@ -2,7 +2,7 @@ const EstateJoi = require('../models/joi/BienJoi');
 
 const validEstateData = {
     title: 'test',
-    adress: 'test',
+    address: 'test',
     area: 3000,
     city: 'testVille',
     postalCode: 'Test',
@@ -17,7 +17,7 @@ const validEstateData = {
 
 const invalidEstateData = {
     title: 254,
-    adress: 'test',
+    address: 'test',
     area: 3000,
     postalCode: '2A',
     bedroom: 5,
@@ -32,8 +32,8 @@ const invalidEstateData = {
 const validFlatData = {
     ...validEstateData,
     flat:{
-        numPorte: '2E',
-        etage: 2
+        doorTag: '2E',
+        floor: 2
     }
 };
 
