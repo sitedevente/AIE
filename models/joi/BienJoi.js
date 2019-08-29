@@ -1,46 +1,50 @@
 const Joi = require('@hapi/joi');
 
-const bienSchema = 
-Joi.object().keys({
-    titre: Joi.string().required(),
-    adresse: Joi.string().required(),
-    superficie: Joi.number().required(),
-    ville: Joi.string().required(),
-    codePostal: Joi.string().required(),
-    nbChambre: Joi.number().integer()
+const estateSchema = Joi.object().keys({
+    title: Joi.string().required(),
+    address: Joi.string().required(),
+    area: Joi.number().required(),
+    city: Joi.string().required(),
+    postalCode: Joi.string().required(),
+    bedroom: Joi.number().integer()
         .required(),
-    nbSalleDEau: Joi.number().integer()
+    bathroom: Joi.number().integer()
         .required(),
-    descriptif: Joi.string().required(),
+    details: Joi.string().required(),
     dpe: Joi.number().integer()
         .required(),
     ges: Joi.number().integer()
         .required(),
     location: Joi.boolean()
         .required(),
-    prix: Joi.number().integer()
+    price: Joi.number().integer()
         .required()
 })
 .unknown(false);
 
-
-const AppartementSchema = bienSchema.keys({
-    etage: Joi.number().integer()
-        .required(),
-    numPorte: Joi.string().required()
+const flatSchema = estateSchema.keys({
+    flat: Joi.object().keys({
+        floor: Joi.number().integer()
+            .required(),
+        doorTag: Joi.string().required()
+    })
 });
 
-const MaisonSchema = bienSchema.keys({
-    cave : Joi.boolean().required(),
-    garage : Joi.boolean().required(),
-    jardin : Joi.boolean().required()
+const houseSchema = estateSchema.keys({
+    house: Joi.object().keys({
+        basement: Joi.boolean().required(),
+        garage: Joi.boolean().required(),
+        garden: Joi.boolean().required()
+    })
 });
 
-module.exports = class BienJoiFactory{
-    constructor (type){
-        if(type !== "Maison" && type !== "maison"){
-            return AppartementSchema;
+module.exports = class BienJoiFactory {
+    constructor (subType) {
+        if (subType === 'flat') {
+            return flatSchema;
+        } else if (subType === 'house') {
+            return houseSchema;
         }
-        return MaisonSchema;
+        throw new Error('Not a valid subtype validator');
     }
 };
