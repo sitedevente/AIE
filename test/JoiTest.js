@@ -1,52 +1,58 @@
-const BienJoi = require('../models/joi/BienJoi');
+const EstateJoi = require('../models/joi/BienJoi');
 
-const validBienData = {
-    titre: 'test',
-    adresse: 'test',
-    superficie: 3000,
-    ville: 'testVille',
-    codePostal: 'Test',
-    nbChambre: 5,
-    nbSalleDEau: 2,
-    descriptif: 'Whole Test HAHA',
+const validEstateData = {
+    title: 'test',
+    adress: 'test',
+    area: 3000,
+    city: 'testVille',
+    postalCode: 'Test',
+    bedroom: 5,
+    bathroom: 2,
+    details: 'Whole Test HAHA',
     dpe: 245,
     ges: 34,
     location: true,
-    prix: 200
+    price: 200
 }
 
-const invalidBienData = {
-    titre: 254,
-    adresse: 'test',
-    superficie: 3000,
-    codePostal: '2A',
-    nbChambre: 5,
-    nbSalleDEau: 2,
-    descriptif: 'Whole Test HAHA',
+const invalidEstateData = {
+    title: 254,
+    adress: 'test',
+    area: 3000,
+    postalCode: '2A',
+    bedroom: 5,
+    bathroom: 2,
+    details: 'Whole Test HAHA',
     dpe: 245,
     ges: 34,
     location: true,
-    prix: 200
+    price: 200
 }
 
-const validAppartData = {
-    ...validBienData,
-    numPorte: '2E',
-    etage: 2
+const validFlatData = {
+    ...validEstateData,
+    flat:{
+        numPorte: '2E',
+        etage: 2
+    }
 };
 
-const validMaisonData = {
-    ...validBienData,
-    cave: true,
-    garage: false,
-    jardin: true
+const validHouseData = {
+    ...validEstateData,
+    house:{
+        basement: true,
+        garage: false,
+        garden: true
+    }
 }
 
-const invalidMaisonData = {
-    ...invalidBienData,
-    cave: true,
-    garage: false,
-    jardin: true
+const invalidHouseData = {
+    ...invalidEstateData,
+    house:{
+        basement: true,
+        garage: false,
+        garden: true
+    }   
 }
 
 // eslint-disable-next-line func-style
@@ -62,15 +68,15 @@ const errorHandler = (error,value) => {
     console.log('');
 }
 
-const maisonJoiTest = new BienJoi('Maison');
+const houseJoiTest = new EstateJoi('house');
 
-const appartJoiTest = new BienJoi('Appartement');
+const flatJoiTest = new EstateJoi('flat');
 
-maisonJoiTest.validate(invalidMaisonData,errorHandler)
-maisonJoiTest.validate(validMaisonData,errorHandler)
-maisonJoiTest.validate(validBienData,errorHandler)
+houseJoiTest.validate(invalidHouseData,errorHandler)
+houseJoiTest.validate(validHouseData,errorHandler)
+houseJoiTest.validate(validEstateData,errorHandler)
 
-console.log('Appartement now')
+console.log('flat now')
 
-maisonJoiTest.validate(validAppartData,errorHandler)
-appartJoiTest.validate(validAppartData,errorHandler)
+houseJoiTest.validate(validFlatData,errorHandler)
+flatJoiTest.validate(validFlatData,errorHandler)
