@@ -1,11 +1,11 @@
-const Sequelize = require('sequelize');
-const {database,ModelCreator} = require('../models/orm')
+const {database} = require('../models/orm')
 
 module.exports = class BienController{
 	constructor (){
-		this.Estate = ModelCreator.EstateCreator(database,Sequelize);
-		this.Flat = ModelCreator.FlatCreator(database,Sequelize,this.Estate);
-		this.House = ModelCreator.HouseCreator(database,Sequelize,this.Estate);
+		const {estate, flat, house} = database.models;
+		this.Estate = estate;
+		this.Flat = flat;
+		this.House = house;
 	}
 
 	async getOne (req,res) {
@@ -48,12 +48,12 @@ module.exports = class BienController{
 			if(type === 'flat'){
 				return this.Flat.build({
 					...flat,
-					id
+					estateId: id
 				})
 			}else if(type === 'house'){
 				return this.House.build({
 					...house,
-					id
+					estateId: id
 				})
 			}
 		}
