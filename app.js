@@ -1,8 +1,4 @@
-/* eslint-disable no-console */
 const express = require('express');
-
-// process.env.DB_HOST and dotenv
-
 const app = express();
 const {bien} = require('./routes');
 
