@@ -55,19 +55,6 @@ const invalidHouseData = {
     }   
 }
 
-// eslint-disable-next-line func-style
-const errorHandler = (error,value) => {
-    if(error){
-        console.log('failure')
-        console.log(error.details)
-    }else{
-        console.log('success')
-        console.log(value)
-    }
-    console.log('Test Ended')
-    console.log('');
-}
-
 const joiHandler = async (schema, data) => {
     const resToDisplay = {
         value: "",
@@ -88,7 +75,6 @@ const joiHandler = async (schema, data) => {
 
 
 const houseJoiTest = new EstateJoi('house');
-
 const flatJoiTest = new EstateJoi('flat');
 
 Promise.all([
