@@ -8,7 +8,10 @@ module.exports = (database, Sequelize) => {
     })
 
     const {estate} = database.models;
-    Flat.belongsTo(estate);
+    Flat.belongsTo(estate, {
+        foreignKeyConstraint: true,
+        onDelete: 'cascade'
+    });
     estate.hasOne(Flat);
     
     return Flat;
