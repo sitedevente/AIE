@@ -5,6 +5,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Executable
+dist/*.exe
+
 # Runtime data
 pids
 *.pid
