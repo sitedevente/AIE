@@ -1,5 +1,4 @@
-- JOI (In progress)
-- SEQUELIZE (In progress)
+- SEQUELIZE (NEAR END)
 - NCONF or other config Store (Next)
 - JsDoc (Documentation - Low priority)
 - MySQL PROCEDURES (Low priority)
