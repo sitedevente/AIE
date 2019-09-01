@@ -6,14 +6,6 @@ const EstateJoi = require('../models/joi/BienJoi');
 const bienCtrl = new BienController();
 const router = new Router();
 
-const idValidator = (req,res,next,id) => {
-    if(isNaN(id)){
-        return res.sendStatus(404);	
-    }	
-    res.locals.id = id;
-    next();
-};
-
 const estateValidator = async (req, res, next) => {
     const {flat, house} = req.body;
     let type = '';
@@ -33,9 +25,16 @@ const estateValidator = async (req, res, next) => {
 };
 
 router
-.param('id', idValidator)
+.param('id', (req,res,next,id) => {
+    if(isNaN(id)){
+        return res.sendStatus(404);	
+    }	
+    res.locals.id = id;
+    next();
+})
 .post('/', json(), estateValidator, bienCtrl.createEstate.bind(bienCtrl))
 .get('/', bienCtrl.getAll.bind(bienCtrl))
+.delete('/:id', bienCtrl.delete.bind(bienCtrl))
 .get('/:id', bienCtrl.getOne.bind(bienCtrl))
 .use('*', (req,res) => res.sendStatus(404))
 
