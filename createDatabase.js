@@ -1,5 +1,4 @@
-const Sequelize = require('sequelize');
-const { database, ModelCreator } = require('./models');
+const {database} = require('./models/orm');
 
 database.authenticate()
 .then(() => {
@@ -8,15 +7,6 @@ database.authenticate()
 .catch(err => {
     console.error('Unable to connect to the database:', err);
 })
-
-
-const { EstateCreator, FlatCreator, HouseCreator } = ModelCreator;
-
-const Estate = EstateCreator(database, Sequelize);
-
-const Flat = FlatCreator(database, Sequelize, Estate);
-
-const House = HouseCreator(database, Sequelize, Estate);
 
 database.sync({
     forces: true
