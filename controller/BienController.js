@@ -1,5 +1,16 @@
 const {database} = require('../models/orm')
 
+const filter = (estate) => {
+	const {flat, house} = estate;
+	if(flat.estateId && !house.estateId){
+		delete estate.house;
+	}else if (house.estateId && !flat.estateId){
+		delete estate.flat;
+	}
+	return estate;
+}
+
+
 module.exports = class BienController{
 	constructor (){
 		const {estate, flat, house} = database.models;
@@ -20,19 +31,27 @@ module.exports = class BienController{
 			]
 		})
 		.then( raw => {
-			const {flat, house} = raw;
-			if(flat.estateId && !house.estateId){
-				delete raw.house;
-			}else if (house.estateId && !flat.estateId){
-				delete raw.flat;
-			}
-			return res.status(200).json(raw);
+			const filtered = filter(raw);
+			return res.status(200).json(filtered);
 		})
 		.catch( err => res.status(400).json(err))
 	}
 
-	async getAll (){
-		this.Estate.build();
+	async getAll (req,res){
+		this.Estate.findAll({
+			nest:true,
+			raw:true,
+			include: [
+				{model: this.Flat},
+				{model: this.House}
+			],
+			order: [['id', 'DESC']]
+		})
+		.then( raws => {
+			const filteredArray = raws.map( raw => filter(raw));
+			return res.status(200).json(filteredArray);
+		})
+		.catch( err => res.status(400).json(err))
 	}
 
 	async createEstate (req,res) {
@@ -66,5 +85,22 @@ module.exports = class BienController{
 			.then(() => res.status(201).json({id : instance.dataValues.id}))))
 		.catch( err => res.status(400).json(err));
 	}
+
+	async delete (req,res){
+		const {id} = res.locals;
+
+		this.Estate.findByPk(id, {
+			include: [
+				{model: this.Flat},
+				{model: this.House}
+			]
+		})
+		.then( raw => {
+			raw.destroy()
+			.then(() => res.sendStatus(200))
+		})
+		.catch( err => res.status(400).json(err))
+	}
+
 
 };
