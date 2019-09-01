@@ -10,7 +10,10 @@ module.exports = (database, Sequelize) => {
 
     const {estate} = database.models;
 
-    House.belongsTo(estate);
+    House.belongsTo(estate, {
+        foreignKeyConstraint: true,
+        onDelete: 'cascade'
+    });
     estate.hasOne(House);    
     return House;
 };
