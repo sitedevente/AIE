@@ -8,7 +8,6 @@
     "scripts" : "./node_modules/mysql2/*.js"
   },
   "scripts": {
-    "db": "node ./test/DbTest.js",
     "dev": "set NODE_ENV=dev && npm start",
     "joi": "node ./test/JoiTest.js",
     "start": "nodemon server.js",
