@@ -19,7 +19,7 @@ module.exports = class BienController{
 		this.House = house;
 	}
 
-	async getOne (req,res) {
+	getOne (req,res) {
 		const {id} = res.locals;
 
 		this.Estate.findByPk(id, {
@@ -37,7 +37,7 @@ module.exports = class BienController{
 		.catch( err => res.status(400).json(err))
 	}
 
-	async getAll (req,res){
+	getAll (req,res){
 		this.Estate.findAll({
 			nest:true,
 			raw:true,
@@ -86,7 +86,7 @@ module.exports = class BienController{
 		.catch( err => res.status(400).json(err));
 	}
 
-	async delete (req,res){
+	delete (req,res){
 		const {id} = res.locals;
 
 		this.Estate.findByPk(id, {

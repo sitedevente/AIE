@@ -33,9 +33,9 @@ router
     next();
 })
 .post('/', json(), estateValidator, bienCtrl.createEstate.bind(bienCtrl))
-.get('/', bienCtrl.getAll.bind(bienCtrl))
-.delete('/:id', bienCtrl.delete.bind(bienCtrl))
-.get('/:id', bienCtrl.getOne.bind(bienCtrl))
+.get('/', bienCtrl.getAll)
+.delete('/:id', bienCtrl.delete)
+.get('/:id', bienCtrl.getOne)
 .use('*', (req,res) => res.sendStatus(404))
 
 module.exports = router;
