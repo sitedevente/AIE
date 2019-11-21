@@ -5,7 +5,7 @@
   "main": "server.js",
   "bin": "server.js",
   "pkg": {
-    "scripts" : "./node_modules/mysql2/*.js"
+    "scripts": "./node_modules/mysql2/*.js"
   },
   "scripts": {
     "dev": "set NODE_ENV=dev && npm start",
@@ -16,9 +16,9 @@
   "author": "TipocheJM",
   "license": "ISC",
   "dependencies": {
-    "@hapi/joi": "^15.0.3",
+    "@hapi/joi": "^15.1.1",
     "express": "^4.17.1",
-    "mysql2": "^1.6.5",
-    "sequelize": "^5.12.3"
+    "mysql2": "^1.7.0",
+    "sequelize": "^5.21.2"
   }
 }
