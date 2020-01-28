@@ -11,7 +11,7 @@ const filter = (estate) => {
 }
 
 
-module.exports = class BienController{
+module.exports = class EstateController{
 	constructor (){
 		const {estate, flat, house} = database.models;
 		this.Estate = estate;
@@ -19,10 +19,10 @@ module.exports = class BienController{
 		this.House = house;
 	}
 
-	getOne (req,res) {
+	async getOne (req,res) {
 		const {id} = res.locals;
 
-		this.Estate.findByPk(id, {
+		await this.Estate.findByPk(id, {
 			nest:true,
 			raw:true,    
 			include: [
@@ -37,8 +37,8 @@ module.exports = class BienController{
 		.catch( err => res.status(400).json(err))
 	}
 
-	getAll (req,res){
-		this.Estate.findAll({
+	async getAll (req,res){
+		await this.Estate.findAll({
 			nest:true,
 			raw:true,
 			include: [
@@ -86,10 +86,10 @@ module.exports = class BienController{
 		.catch( err => res.status(400).json(err));
 	}
 
-	delete (req,res){
+	async delete (req,res){
 		const {id} = res.locals;
 
-		this.Estate.findByPk(id, {
+		await this.Estate.findByPk(id, {
 			include: [
 				{model: this.Flat},
 				{model: this.House}

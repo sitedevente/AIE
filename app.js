@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const {bien} = require('./routes');
+const {estate} = require('./routes');
 
 app
 
@@ -19,7 +19,7 @@ app
   next();
 })
 
-.use('/bien', bien)
+.use('/estate', estate)
 
 .get('/favicon.ico', (req, res) => res.status(204));
 

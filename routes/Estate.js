@@ -1,9 +1,9 @@
 const {Router, json} = require('express');
-const BienController = require('../controller/BienController');
+const EstateController = require('../controller/EstateController');
 const EstateJoi = require('../models/joi/BienJoi');
 
 
-const bienCtrl = new BienController();
+const bienCtrl = new EstateController();
 const router = new Router();
 
 const estateValidator = async (req, res, next) => {
@@ -33,9 +33,9 @@ router
     next();
 })
 .post('/', json(), estateValidator, bienCtrl.createEstate.bind(bienCtrl))
-.get('/', bienCtrl.getAll)
-.delete('/:id', bienCtrl.delete)
-.get('/:id', bienCtrl.getOne)
+.get('/', bienCtrl.getAll.bind(bienCtrl))
+.delete('/:id', bienCtrl.delete.bind(bienCtrl))
+.get('/:id', bienCtrl.getOne.bind(bienCtrl))
 .use('*', (req,res) => res.sendStatus(404))
 
 module.exports = router;

@@ -1,1 +1,1 @@
-module.exports.bien = require('./Bien'); 
+module.exports.estate = require('./Estate'); 
