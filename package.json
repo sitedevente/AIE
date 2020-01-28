@@ -19,6 +19,6 @@
     "@hapi/joi": "^15.1.1",
     "express": "^4.17.1",
     "mysql2": "^1.7.0",
-    "sequelize": "^5.21.2"
+    "sequelize": "^5.21.3"
   }
 }
